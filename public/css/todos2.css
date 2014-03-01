@@ -143,18 +143,19 @@ body {
 }
 
 #new-todo {
+/*
 	position:fixed;
 	left:0px;
 	bottom:0px;
 	overflow:hidden;
-/*
+z-index: 2;
     padding: 16px 16px 16px 60px;
     border: none;
     background: rgba(0, 0, 0, 0.02);
-    */
+    
     height:68px;
     width:100%;
-    z-index: 2;
+    */
   //  box-shadow: none;
 }
 
