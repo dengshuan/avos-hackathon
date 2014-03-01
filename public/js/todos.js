@@ -107,8 +107,14 @@ $(function() {
 
     // Re-render the contents of the todo item.
     render: function() {
-      $(this.el).html(this.template(this.model.toJSON()));
-      this.input = this.$('.edit');
+      var todo = this.model.toJSON();
+      var userq = new AV.Query(AV.User);
+      var that = this;
+      userq.get(todo["user"]["objectId"],function(user){
+          todo["user"] = user.toJSON();
+          $(that.el).html(that.template(todo));
+          that.input = that.$('.edit');
+      });
       return this;
     },
 
