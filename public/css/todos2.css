@@ -51,8 +51,8 @@ body {
 
 #todoapp:before {
     content: '';
-    border-left: 1px solid #f5d6d6;
-    border-right: 1px solid #f5d6d6;
+    //border-left: 1px solid #f5d6d6;
+    //border-right: 1px solid #f5d6d6;
     width: 2px;
     position: absolute;
     top: 45px;
@@ -211,11 +211,11 @@ label[for='toggle-all'] {
     text-align: left;
     position: relative;
     font-size: 24px;
-    border-bottom: 1px dotted #ccc;
+    //border-bottom: 1px dotted #ccc;
 }
 
 #todo-list li:last-child {
-    border-bottom: none;
+    //border-bottom: none;
 }
 
 #todo-list li.editing {
