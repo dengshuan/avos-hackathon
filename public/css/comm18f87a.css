@@ -44,7 +44,9 @@ html, body{
 	/* Elements */
 	
 	html, body { height:100%; background:#4E5359 url(../images/bg_universal17ced3.png) repeat 0 0; 
-		color:#666; font:14px/1.5 Helvetica,"微软雅黑","黑体",Arial,Tahoma; text-align:center; overflow-y: hidden;}
+		color:#666; font:14px/1.5 Helvetica,"微软雅黑","黑体",Arial,Tahoma; text-align:center; 
+		//overflow-y: hidden;
+		}
 	a,input { outline:none; }
 	a:link,a:visited { color:#55a; text-decoration:none; }
 	a:hover, a:active { color:#55a; text-decoration:underline; }

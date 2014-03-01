@@ -143,18 +143,19 @@ body {
 }
 
 #new-todo {
+/*
 	position:fixed;
 	left:0px;
 	bottom:0px;
 	overflow:hidden;
-/*
+z-index: 2;
     padding: 16px 16px 16px 60px;
     border: none;
     background: rgba(0, 0, 0, 0.02);
-    */
+    
     height:68px;
     width:100%;
-    z-index: 2;
+    */
   //  box-shadow: none;
 }
 
@@ -326,6 +327,10 @@ label[for='toggle-all'] {
     margin-bottom: -1px;
 }
 
+.view{
+height:45px;
+}
+
 #footer {
     color: #777;
     padding: 0 15px;
@@ -421,7 +426,7 @@ label[for='toggle-all'] {
 }
 
 #todoapp .content .login {
-    width: 350px;
+    //width: 350px;
     margin: 45px auto 25px auto;
 }
 
@@ -436,13 +441,13 @@ label[for='toggle-all'] {
     margin-bottom: 10px;
     font-size: 20px;
     padding: 5px;
-    width: 340px;;
+    //width: 340px;;
 }
 
 #todoapp .content .login .signup-form {
     margin-top: 25px;
 }
-
+/*
 #todoapp .content .login button {
     padding: 5px 10px;
     background: #eee;
@@ -451,7 +456,7 @@ label[for='toggle-all'] {
     border-radius: 5px;
     margin-bottom: 25px;
     font-family: "Helvetica Neue";
-}
+}*/
 
 #todoapp .content .login .error {
     border: 1px solid red;
