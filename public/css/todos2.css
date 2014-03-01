@@ -326,6 +326,10 @@ label[for='toggle-all'] {
     margin-bottom: -1px;
 }
 
+.view{
+height:45px;
+}
+
 #footer {
     color: #777;
     padding: 0 15px;
