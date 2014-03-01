@@ -23,7 +23,7 @@ body {
     line-height: 1.4em;
     background: #eeeeee url('../images/bg.png');
     color: #4d4d4d;
-    //width: 550px;
+    width: 100%;
     margin: 0 auto;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
@@ -142,11 +142,13 @@ body {
 }
 
 #new-todo {
+/*
     padding: 16px 16px 16px 60px;
     border: none;
     background: rgba(0, 0, 0, 0.02);
+    */
     z-index: 2;
-    box-shadow: none;
+  //  box-shadow: none;
 }
 
 #main {
