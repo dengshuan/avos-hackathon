@@ -79,6 +79,7 @@
       <li class="<%= done ? 'completed' : '' %>">
 	<div class="view">
 	  <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %>>
+	  <label class="todo-user"><%= user["username"] %>:</label>
 	  <label class="todo-content"><%= content %></label>
 	  <button class="todo-destroy"></button>
 	</div>
