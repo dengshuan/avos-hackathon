@@ -271,12 +271,21 @@ $(function() {
     createOnEnter: function(e) {
       var self = this;
       if (e.keyCode != 13) return;
-
+      if (navigator.geolocation) {
+	  var position = navigator.geolocation.getCurrentPosition();
+	  var latitude = position.coords.latitude;
+	  var longitude = position.coords.longitude;
+      }
+      else {
+	  var latitude = 0;
+	  var longitude = 0;
+      };
       this.todos.create({
         content: this.input.val(),
         order:   this.todos.nextOrder(),
         done:    false,
         user:    AV.User.current(),
+	point:   AV.GeoPoint({"latitude": latitude, "longitude": longitude})
         //ACL:     new AV.ACL(AV.User.current())
       });
 
