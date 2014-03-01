@@ -36,9 +36,9 @@
     <!-- Todo App Interface -->
 
     <div id="todoapp">
-      <div class="title">
+      <!---<div class="title">
         <h1 style="font-size:50px"> Cloud Todos</h1>
-      </div>
+      </div>--->
 
       <div class="content">
       </div>
@@ -54,27 +54,25 @@
       <header id="header"></header>
       <div class="login">
         <form class="login-form">
-          <h2>Log In</h2>
+          <h2>登陆</h2>
           <div class="error" style="display:none"></div>
-          <input type="text" id="login-username" placeholder="Username" />
-          <input type="password" id="login-password" placeholder="Password" />
-          <button>Log In</button>
+          <input type="text" id="login-username" placeholder="账号" />
+          <input type="password" id="login-password" placeholder="密码" />
+          <button class="chatSend" >登陆</button>
         </form>
 
         <form class="signup-form">
-          <h2>Sign Up</h2>
+          <h2>注册</h2>
           <div class="error" style="display:none"></div>
-          <input type="text" id="signup-username" placeholder="Username" />
-          <input type="password" id="signup-password" placeholder="Create a Password" />
-          <button>Sign Up</button>
+          <input type="text" id="signup-username" placeholder="账号" />
+          <input type="password" id="signup-password" placeholder="密码" />
+          <button class="chatSend" >注册</button>
         </form>
       </div>
     </script>
 
     <script type="text/template" id="manage-todos-template">
-      <div id="user-info">
-        Signed in as <%= AV.User.current().get("username") %> (<a href="#" class="log-out">Log out</a>)
-      </div>
+      <div id="user-info"><%= AV.User.current().get("username") %> (<a href="#" class="log-out">Log out</a>)</div>
 
       <div class="section">
 
