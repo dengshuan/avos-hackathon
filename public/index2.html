@@ -25,6 +25,7 @@
     <link href="css/todos2.css" media="all" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="css/comm18f87a.css" type="text/css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="js/underscore-1.1.6.js"></script>
     <script src="js/av.js"></script>
@@ -107,7 +108,16 @@
       <li class="<%= done ? 'completed' : '' %>">
 	<div class="view">
 	  <label class="todo-user"><%= user["username"] %>:</label>
-	  <label class="todo-content"><%= content %></label>
+	  
+	   <div class="cloudContent">
+	   <pre style="white-space:pre-wrap">
+	   <!---<label 
+	     class="todo-content" 
+	   >--->
+	   
+	   <%= content %>
+	   <!--- </label> --->
+	   </pre>  </div>  
 	  
 	</div>
 	<input class="edit" value="<%= content %>">
