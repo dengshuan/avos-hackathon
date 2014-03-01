@@ -106,21 +106,26 @@
 
     <script type="text/template" id="item-template">
       <li class="<%= done ? 'completed' : '' %>">
-	<div class="view">
+<!---	<div class="view"> --->
 	  <label class="todo-user"><%= user["username"] %>:</label>
 	  
-	   <div class="cloudContent">
-	   <pre style="white-space:pre-wrap">
-	   <!---<label 
-	     class="todo-content" 
-	   >--->
-	   
-	   <%= content %>
-	   <!--- </label> --->
-	   </pre>  </div>  
+	      <div class="chatItemContent">
+	     <!--- <img class="avatar" src="/cgi-bin/mmwebwx-bin/webwxgeticon?seq=621610364&amp;username=vveijj" onerror="reLoadImg(this)" un="avatar_vveijj" title="Jim Wei GK" click="showProfile" username="vveijj"> --->
+	      <div class="cloud cloudText" un="cloud_1021600231" msgid="1021600231">
+	      <div class="cloudPannel" style="">
+	      <div class="sendStatus">   </div>
+	      <div class="cloudBody">
+	      <div class="cloudContent">
+	                                       <pre style="white-space:pre-wrap">
+	                                       
+	                                       <%= content %>
+	                                       </pre>  </div>  </div> <div class="cloudArrow "></div>  </div>  </div>  </div>   
 	  
-	</div>
-	<input class="edit" value="<%= content %>">
+	  
+	   
+	  
+	<!--- </div>
+	<input class="edit" value="<%= content %>"> --->
       </li>
     </script>
 
