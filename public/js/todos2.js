@@ -107,8 +107,14 @@ $(function() {
 
     // Re-render the contents of the todo item.
     render: function() {
-      $(this.el).html(this.template(this.model.toJSON()));
-      this.input = this.$('.edit');
+      var todo = this.model.toJSON();
+      var userq = new AV.Query(AV.User);
+      var that = this;
+      userq.get(todo["user"]["objectId"],function(user){
+          todo["user"] = user.toJSON();
+          $(that.el).html(that.template(todo));
+          that.input = that.$('.edit');
+      });
       return this;
     },
 
@@ -272,7 +278,7 @@ $(function() {
       var self = this;
       if (e.keyCode != 13) return;
       if (navigator.geolocation) {
-	  var opt = {timeout:6000};
+	  var opt = {timeout:10000};
 	  navigator.geolocation.getCurrentPosition(function(position) {
 	      var latitude = position.coords.latitude;
 	      var longitude = position.coords.longitude;
@@ -287,13 +293,13 @@ $(function() {
 
 	      self.input.val('');
 	      self.resetFilters();	      
-	  }, function(error) {
-	      alert("Error occurred!"+err.code);
-	      if(err.code == 1) {
-		  alert("Error: Access is denied!");
-	      }else if( err.code == 2) {
-		  alert("Error: Position is unavailable!");
-	      };	      
+	  }, function(err) {
+	      alert("Error occurred! Error code: " + err.code);
+	      // if(err.code == 1) {
+	      // 	  alert("Error: Access is denied!");
+	      // }else if( err.code == 2) {
+	      // 	  alert("Error: Position is unavailable!");
+	      // };	      
 	}, opt);					   
 
       }

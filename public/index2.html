@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Wonder</title>
-    <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="css/todos2.css" media="all" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="js/underscore-1.1.6.js"></script>
     <script src="js/av.js"></script>
@@ -25,8 +27,16 @@
 
     <div id="credits">
       
-     
+    
     </div>
+    
+    
+	<div class="input-group">
+	 <input id="new-todo" placeholder="Input Words..." type="text" class="form-control" />
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button">发送</button>
+	      </span>
+	    </div>
 
     <!-- Templates -->
 
@@ -58,9 +68,9 @@
 
       <div class="section">
 
-        <header id="header">
-          <input id="new-todo" placeholder="What needs to be done?" type="text" />
-        </header>
+        
+          
+        
 
         <div id="main">
           
@@ -79,7 +89,7 @@
     <script type="text/template" id="item-template">
       <li class="<%= done ? 'completed' : '' %>">
 	<div class="view">
-	  
+	  <label class="todo-user"><%= user["username"] %>:</label>
 	  <label class="todo-content"><%= content %></label>
 	  
 	</div>
