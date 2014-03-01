@@ -35,13 +35,15 @@
      // User's location
      function findLandmark() {
        if (navigator.geolocation) {
-	 var opt = {timeout: 50000};
+	 var opt = {maximumAge: 10000,
+	   timeout: 5000};
 	 navigator.geolocation.getCurrentPosition(function(position) {
 	   var latitude = position.coords.latitude;
 	   var longitude = position.coords.longitude;
 	   userGeoPoint = new AV.GeoPoint({"latitude":latitude, "longitude":longitude});
 	   /* var userGeoPoint = userObject.get("location"); */
 	   // Create a query for places
+	   var Landmark = AV.Object.extend("Landmark");
 	   var query = new AV.Query(Landmark);
 	   /* find landmarks within 100 meters from user  */
 	   query.withinKilometers("location", userGeoPoint, 0.1);
@@ -50,9 +52,10 @@
 	   // Limit what could be a lot of points.
 				  /* query.limit(10); */
 	   // Final list of objects
+	   alert(latitude + "," + longitude);
 	   query.find({
-	     success: function(placesObjects) {
-	       alert(placesObjects);
+	     success: function(landmarks) {
+	       alert(landmarks);
 	     }
 	   });
 	 }, function(err) {
