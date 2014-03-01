@@ -263,6 +263,8 @@ $(function() {
     // Add all items in the Todos collection at once.
     addAll: function(collection, filter) {
       this.$("#todo-list").html("");
+                     console.log(this.todos);
+
       this.todos.each(this.addOne);
     },
 
@@ -382,6 +384,22 @@ $(function() {
 
     render: function() {
       this.$el.html(_.template($("#login-template").html()));
+      this.todos = new TodoList;
+      this.todos.query = new AV.Query(Todo);
+      this.todos.query.descending("createdAt");
+//      this.todos.query.equalTo("point",
+//        new AV.GeoPoint({latitude: this.$("#latitude").val(), longitude: this.$("#longitude").val()}));
+
+      // Fetch all the todo items for this user
+      this.todos.fetch({success:function(todos){
+               $("#todo-list0").html("");
+               console.log(todos);
+               todos.each(function(todo){
+
+                   var view = new TodoView({model: todo});
+                   $("#todo-list0").append(view.render().el);
+               });
+      }});
       this.delegateEvents();
     }
   });

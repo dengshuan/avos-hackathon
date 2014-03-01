@@ -51,8 +51,8 @@ body {
 
 #todoapp:before {
     content: '';
-    border-left: 1px solid #f5d6d6;
-    border-right: 1px solid #f5d6d6;
+    //border-left: 1px solid #f5d6d6;
+    //border-right: 1px solid #f5d6d6;
     width: 2px;
     position: absolute;
     top: 45px;
@@ -117,7 +117,7 @@ body {
 
 #new-todo,
 .edit {
-    position: relative;
+	
     margin: 0;
     width: 100%;
     font-size: 24px;
@@ -139,14 +139,21 @@ body {
     -ms-font-smoothing: antialiased;
     -o-font-smoothing: antialiased;
     font-smoothing: antialiased;
+
 }
 
 #new-todo {
+	position:fixed;
+	left:0px;
+	bottom:0px;
+	overflow:hidden;
 /*
     padding: 16px 16px 16px 60px;
     border: none;
     background: rgba(0, 0, 0, 0.02);
     */
+    height:68px;
+    width:100%;
     z-index: 2;
   //  box-shadow: none;
 }
@@ -204,11 +211,11 @@ label[for='toggle-all'] {
     text-align: left;
     position: relative;
     font-size: 24px;
-    border-bottom: 1px dotted #ccc;
+    //border-bottom: 1px dotted #ccc;
 }
 
 #todo-list li:last-child {
-    border-bottom: none;
+    //border-bottom: none;
 }
 
 #todo-list li.editing {
