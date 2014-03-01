@@ -7,7 +7,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="js/underscore-1.1.6.js"></script>
     <script src="js/av.js"></script>
-    <script src="js/todos.js"></script>
+    <script src="js/todos2.js"></script>
   </head>
 
   <body>
@@ -59,7 +59,7 @@
       <div class="section">
 
         <header id="header">
-          
+          <input id="new-todo" placeholder="What needs to be done?" type="text" />
         </header>
 
         <div id="main">
@@ -71,7 +71,7 @@
 
         <div id="todo-stats"></div>
         
-        <input id="new-todo" placeholder="What needs to be done?" type="text" />
+        
         
       </div>
     </script>
@@ -81,7 +81,7 @@
 	<div class="view">
 	  
 	  <label class="todo-content"><%= content %></label>
-	  <button class="todo-destroy"></button>
+	  
 	</div>
 	<input class="edit" value="<%= content %>">
       </li>
