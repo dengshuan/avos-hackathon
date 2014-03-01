@@ -70,10 +70,29 @@
             <img src='images/spinner.gif' class='spinner' />
           </ul>
         </div>
-
         <div id="todo-stats"></div>
       </div>
     </script>
+
+    <!-- 获取地理位置信息  -->
+    <button onclick="getLocation()">试一下</button>
+    <script>
+     var x=document.getElementById("demo");
+     function getLocation()
+     {
+       if (navigator.geolocation)
+       {
+	 navigator.geolocation.getCurrentPosition(showPosition);
+       }
+       else{x.innerHTML="Geolocation is not supported by this browser.";}
+     }
+     function showPosition(position)
+     {
+       x.innerHTML="Latitude: " + position.coords.latitude +
+		   "<br />Longitude: " + position.coords.longitude;
+     }
+    </script>
+
 
     <script type="text/template" id="item-template">
       <li class="<%= done ? 'completed' : '' %>">
