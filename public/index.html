@@ -35,7 +35,7 @@
      // User's location
      function findLandmark() {
        if (navigator.geolocation) {
-	 var opt = {timeout: 10000};
+	 var opt = {timeout: 50000};
 	 navigator.geolocation.getCurrentPosition(function(position) {
 	   var latitude = position.coords.latitude;
 	   var longitude = position.coords.longitude;
