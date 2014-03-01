@@ -18,6 +18,7 @@ $(function() {
     // Default attributes for the todo.
     defaults: {
       content: "empty todo...",
+      point: new AV.GeoPoint({latitude: 0, longitude: 0}),
       done: false
     },
 
@@ -25,6 +26,7 @@ $(function() {
     initialize: function() {
       if (!this.get("content")) {
         this.set({"content": this.defaults.content});
+        this.set({"point": this.defaults.point});
       }
     },
 
@@ -178,7 +180,9 @@ $(function() {
 
       // Setup the query for the collection to look for todos from the current user
       this.todos.query = new AV.Query(Todo);
-      this.todos.query.equalTo("user", AV.User.current());
+      this.todos.query.descending("createdAt");
+//      this.todos.query.equalTo("point",
+//        new AV.GeoPoint({latitude: this.$("#latitude").val(), longitude: this.$("#longitude").val()}));
         
       this.todos.bind('add',     this.addOne);
       this.todos.bind('reset',   this.addAll);
@@ -273,7 +277,7 @@ $(function() {
         order:   this.todos.nextOrder(),
         done:    false,
         user:    AV.User.current(),
-        ACL:     new AV.ACL(AV.User.current())
+        //ACL:     new AV.ACL(AV.User.current())
       });
 
       this.input.val('');
