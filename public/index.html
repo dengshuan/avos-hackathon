@@ -23,10 +23,47 @@
       </div>
     </div>
 
+    <button id="test" onclick="findLandmark()">找地标</button>
+
     <div id="credits">
       Powered by <a href="http://cn.avoscloud.com">AVOS Cloud</a> using the JavaScript SDK<br /><br />
      
     </div>
+
+
+    <script>
+     // User's location
+     function findLandmark() {
+       if (navigator.geolocation) {
+	 var opt = {timeout: 10000};
+	 navigator.geolocation.getCurrentPosition(function(position) {
+	   var latitude = position.coords.latitude;
+	   var longitude = position.coords.longitude;
+	   userGeoPoint = new AV.GeoPoint({"latitude":latitude, "longitude":longitude});
+	   /* var userGeoPoint = userObject.get("location"); */
+	   // Create a query for places
+	   var query = new AV.Query(Landmark);
+	   /* find landmarks within 100 meters from user  */
+	   query.withinKilometers("location", userGeoPoint, 0.1);
+	   // Interested in locations near user.
+				  /* query.near("location", userGeoPoint); */
+	   // Limit what could be a lot of points.
+				  /* query.limit(10); */
+	   // Final list of objects
+	   query.find({
+	     success: function(placesObjects) {
+	       alert(placesObjects);
+	     }
+	   });
+	 }, function(err) {
+	     alert("Error occurred! Error code: " + err.code);
+	   }, opt);
+       }
+       else {
+	 alert("Your web browser doesn't support Location service!");
+       };
+     };
+    </script>
 
     <!-- Templates -->
 
