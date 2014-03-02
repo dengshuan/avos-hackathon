@@ -89,11 +89,12 @@ $(function() {
 
     // The DOM events specific to an item.
     events: {
-      "click .toggle"              : "toggleDone",
-      "dblclick label.todo-content" : "edit",
-      "click .todo-destroy"   : "clear",
+//      "click .toggle"              : "toggleDone",
+//      "dblclick label.todo-content" : "edit",
+//      "click .todo-destroy"   : "clear",
       "keypress .edit"      : "updateOnEnter",
-      "blur .edit"          : "close"
+      	  "click .edit"      : "updateOnEnter",
+//      "blur .edit"          : "close"
     },
 
     // The TodoView listens for changes to its model, re-rendering. Since there's
@@ -159,6 +160,7 @@ $(function() {
     // Delegated events for creating new items, and clearing completed ones.
     events: {
       "keypress #new-todo":  "createOnEnter",
+      "click #btn-send":  "createOnClick",
       "click #clear-completed": "clearCompleted",
       "click #toggle-all": "toggleAllComplete",
       "click .log-out": "logOut",
@@ -173,7 +175,7 @@ $(function() {
     initialize: function() {
       var self = this;
 
-      _.bindAll(this, 'addOne', 'addAll', 'addSome', 'render', 'toggleAllComplete', 'logOut', 'createOnEnter');
+      _.bindAll(this, 'addOne', 'addAll', 'addSome', 'render', 'toggleAllComplete', 'logOut', 'createOnEnter', 'createOnClick');
 
       // Main todo management template
       this.$el.html(_.template($("#manage-todos-template").html()));
@@ -280,16 +282,14 @@ $(function() {
       var self = this;
       if (e.keyCode != 13) return;
       if (navigator.geolocation) {
-	  var opt = {maximumAge:60000,
-		     timeout: 5000,
-		     enableHighAccuracy:true};
+	  var opt = {timeout:50000};
 	  navigator.geolocation.getCurrentPosition(function(position) {
 	      var latitude = position.coords.latitude;
 	      var longitude = position.coords.longitude;
 	      self.todos.create({
 		  content: self.input.val(),
-		  // order:   self.todos.nextOrder(),
-		  // done:    false,
+		  order:   self.todos.nextOrder(),
+		  done:    false,
 		  user:    AV.User.current(),
 		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude})
 		  //ACL:     new AV.ACL(AV.User.current())
@@ -298,18 +298,7 @@ $(function() {
 	      self.input.val('');
 	      self.resetFilters();	      
 	  }, function(err) {
-	      var latitude = 39.98327430430997 + 0.1*Math.random();
-	      var longitude = 116.30776755977996 + 0.1*Math.random();
-	      self.todos.create({
-		  content: self.input.val(),
-		  // order:   self.todos.nextOrder(),
-		  // done:    false,
-		  user:    AV.User.current(),
-		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude})
-	      });
-	      self.input.val('');
-	      self.resetFilters();	      
-	      // alert("Error" + err.code + "：无法获取您的位置信息，请检查你的设备设置");
+	      alert("Error occurred! Error code: " + err.code);
 	      // if(err.code == 1) {
 	      // 	  alert("Error: Access is denied!");
 	      // }else if( err.code == 2) {
@@ -323,7 +312,39 @@ $(function() {
       };
 
     },
+    createOnClick: function() {
+      var self = this;
+      if (navigator.geolocation) {
+	  var opt = {timeout:10000};
+	  navigator.geolocation.getCurrentPosition(function(position) {
+	      var latitude = position.coords.latitude;
+	      var longitude = position.coords.longitude;
+	      self.todos.create({
+		  content: self.input.val(),
+		  order:   self.todos.nextOrder(),
+		  done:    false,
+		  user:    AV.User.current(),
+		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude})
+		  //ACL:     new AV.ACL(AV.User.current())
+	      });
 
+	      self.input.val('');
+	      self.resetFilters();	      
+	  }, function(err) {
+	      alert("Error occurred! Error code: " + err.code);
+	      // if(err.code == 1) {
+	      // 	  alert("Error: Access is denied!");
+	      // }else if( err.code == 2) {
+	      // 	  alert("Error: Position is unavailable!");
+	      // };	      
+	}, opt);					   
+
+      }
+      else {
+	  alert("Your web browser doesn't support Location service!");
+      };
+
+    },
     // Clear all done todo items, destroying their models.
     clearCompleted: function() {
       _.each(this.todos.done(), function(todo){ todo.destroy(); });

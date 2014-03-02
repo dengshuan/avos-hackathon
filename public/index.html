@@ -2,9 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>AV JavaScript Todo App</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+
+    <title>Wonder</title>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="css/comm18f87a.css" type="text/css" />
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="js/underscore-1.1.6.js"></script>
     <script src="js/av.js"></script>
     <script src="js/todos.js"></script>
@@ -23,7 +28,7 @@
       </div>
     </div>
 
-    <button id="test" onclick="findLandmark()">æ‰¾åœ°æ ‡</button>
+    <button id="test" onclick="findLandmark()">ÕÒµØ±ê</button>
 
     <div id="credits">
       Powered by <a href="http://cn.avoscloud.com">AVOS Cloud</a> using the JavaScript SDK<br /><br />
@@ -35,15 +40,13 @@
      // User's location
      function findLandmark() {
        if (navigator.geolocation) {
-	 var opt = {maximumAge: 10000,
-	   timeout: 5000};
+	 var opt = {timeout: 50000};
 	 navigator.geolocation.getCurrentPosition(function(position) {
 	   var latitude = position.coords.latitude;
 	   var longitude = position.coords.longitude;
 	   userGeoPoint = new AV.GeoPoint({"latitude":latitude, "longitude":longitude});
 	   /* var userGeoPoint = userObject.get("location"); */
 	   // Create a query for places
-	   var Landmark = AV.Object.extend("Landmark");
 	   var query = new AV.Query(Landmark);
 	   /* find landmarks within 100 meters from user  */
 	   query.withinKilometers("location", userGeoPoint, 0.1);
@@ -52,10 +55,9 @@
 	   // Limit what could be a lot of points.
 				  /* query.limit(10); */
 	   // Final list of objects
-	   alert(latitude + "," + longitude);
 	   query.find({
-	     success: function(landmarks) {
-	       alert(landmarks);
+	     success: function(placesObjects) {
+	       alert(placesObjects);
 	     }
 	   });
 	 }, function(err) {
@@ -71,82 +73,102 @@
     <!-- Templates -->
 
     <script type="text/template" id="login-template">
-      <header id="header"></header>
+  <header id="header"></header>
       <div class="login">
         <form class="login-form">
-          <h2>Log In</h2>
+          <h2>µÇÂ½</h2>
           <div class="error" style="display:none"></div>
-          <input type="text" id="login-username" placeholder="Username" />
-          <input type="password" id="login-password" placeholder="Password" />
-          <button>Log In</button>
+          <input type="text" id="login-username" placeholder="ÕËºÅ" />
+          <input type="password" id="login-password" placeholder="ÃÜÂë" />
+          <button class="chatSend" >µÇÂ½</button>
         </form>
 
         <form class="signup-form">
-          <h2>Sign Up</h2>
+          <h2>×¢²á</h2>
           <div class="error" style="display:none"></div>
-          <input type="text" id="signup-username" placeholder="Username" />
-          <input type="password" id="signup-password" placeholder="Create a Password" />
-          <button>Sign Up</button>
+          <input type="text" id="signup-username" placeholder="ÕËºÅ" />
+          <input type="password" id="signup-password" placeholder="ÃÜÂë" />
+          <button class="chatSend" >×¢²á</button>
         </form>
       </div>
         <div class="section">
-            <ul id="todo-list0">
+            <ul id="todo-list">
                 <img src='images/spinner.gif' class='spinner' />
             </ul>
         </div>
     </script>
 
-    <script type="text/template" id="manage-todos-template">
-      <div id="user-info">
-        Signed in as <%= AV.User.current().get("username") %> (<a href="#" class="log-out">Log out</a>)
-      </div>
+ <script type="text/template" id="manage-todos-template">
+      <div id="user-info"><%= AV.User.current().get("username") %> <a href="#" class="log-out">µÇ³ö</a></div>
 
       <div class="section">
 
-        <header id="header">
-          <input id="new-todo" placeholder="What needs to be done?" type="text" />
-        </header>
+            <header id="header">
+            
+            <div ctrl="1" id="chat_editor" class="chatOperator lightBorder">
+						<div class="inputArea">
+						
+						
+							<input id="new-todo" placeholder="Input Words..." type="text" style="" class="chatInput lightBorder" />
+							 <a href="javascript:;" id="btn-send" class="chatSend" click="sendMsg@.inputArea"><b>·¢ËÍ</b></a>
+						
+							<div class="clr"></div>
+							<input style="visibility: hidden; position: absolute; left: -1000px; padding: 0px 10px; width: 403px; overflow: hidden;" type="text" id="new-todo" class="chatInput lightBorder"></input>
+						
+						</div>
+						
+						
+					</div>
+            
+            
+            
+          
+	     </header>
+
+        
 
         <div id="main">
-          <input id="toggle-all" type="checkbox">
-          <label for="toggle-all">Mark all as complete</label>
           
           <ul id="todo-list">
             <img src='images/spinner.gif' class='spinner' />
           </ul>
         </div>
-        <div id="todo-stats"></div>
+
+        <!--- <div id="todo-stats"></div> --->
+        
+        	
+        
       </div>
     </script>
 
     <script type="text/template" id="item-template">
       <li class="<%= done ? 'completed' : '' %>">
-	<div class="view">
-	  <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %>>
-	  <label class="todo-user"><%= user["username"] %>:</label>
-	  <label class="todo-content"><%= content %></label>
-	  <button class="todo-destroy"></button>
-	</div>
-	<input class="edit" value="<%= content %>">
+	<div class="view"> 
+	  <!---<label class="todo-user"><%= user["username"] %>:</label>--->
+	  	<div class="chatItem you" un="item_1021600231">  
+	  	
+	      <div class="chatItemContent">
+	     <!--- <img class="avatar" src="/cgi-bin/mmwebwx-bin/webwxgeticon?seq=621610364&amp;username=vveijj" onerror="reLoadImg(this)" un="avatar_vveijj" title="Jim Wei GK" click="showProfile" username="vveijj"> --->
+	     <div class="avatar"><%= user["username"] %>:</div>
+	      <div class="cloud cloudText" un="cloud_1021600231" msgid="1021600231">
+	      <div class="cloudPannel" style="">
+	      <div class="sendStatus">   </div>
+	      <div class="cloudBody">
+	      <div class="cloudContent">
+	                                       <pre style="white-space:pre-wrap"><%= content %></pre>  </div>  </div> <div class="cloudArrow "></div>  </div>  </div>  </div>   
+	  
+	  
+	   
+	   </div>
+	 </div>
+	<!--- <input class="edit" value="<%= content %>"> --->
       </li>
     </script>
 
     <script type="text/template" id="stats-template">
-      <footer id="footer">
-	<span id="todo-count"><strong><%= remaining %></strong> <%= remaining == 1 ? 'item' : 'items' %> left</span>
-	<ul id="filters">
-	  <li>
-	    <a href="javascript:void(0)" id="all" class="selected">All</a>
-	  </li>
-	  <li>
-	    <a href="javascript:void(0)" id="active">Active</a>
-	  </li>
-	  <li>
-	    <a href="javascript:void(0)" id="completed">Completed</a>
-	  </li>
-	</ul>
-	<button id="clear-completed">Clear completed (<%= done %>)</button>
-      </footer>
+     <footer id="footer">
+     
+     </footer>
     </script>
 
   </body>
