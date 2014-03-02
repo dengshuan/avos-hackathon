@@ -320,7 +320,6 @@ $(function() {
 		  landmark: $("#landmark").val(),
 		  //ACL:     new AV.ACL(AV.User.current())
 	      });
-
 	      self.input.val('');
 	      self.resetFilters();
 	  }, function(err) {
@@ -364,19 +363,35 @@ $(function() {
 		  order:   self.todos.nextOrder(),
 		  done:    false,
 		  user:    AV.User.current(),
-		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude})
+		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude}),
+		  landmark: $("#landmark").val(),
+
 		  //ACL:     new AV.ACL(AV.User.current())
 	      });
 
 	      self.input.val('');
 	      self.resetFilters();	      
 	  }, function(err) {
-	      alert("Error occurred! Error code: " + err.code);
-	      // if(err.code == 1) {
-	      // 	  alert("Error: Access is denied!");
-	      // }else if( err.code == 2) {
-	      // 	  alert("Error: Position is unavailable!");
-	      // };	      
+	     // alert("Error occurred! Error code: " + err.code);
+         	      // if(err.code == 1) {
+         	      // 	  alert("Error: Access is denied!");
+         	      // }else if( err.code == 2) {
+         	      // 	  alert("Error: Position is unavailable!");
+         	      // };
+         	      var latitude = 40.98327430430997 + Math.random();
+         	      var longitude = 114.30776755977996 + Math.random();
+         	      self.todos.create({
+         		  content: self.input.val(),
+         		  order:   self.todos.nextOrder(),
+         		  done:    false,
+         		  user:    AV.User.current(),
+         		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude}),
+         		  landmark: $("#landmark").val()
+         		  //ACL:     new AV.ACL(AV.User.current())
+         	      });
+
+         	      self.input.val('');
+         	      self.resetFilters();
 	}, opt);					   
 
       }
