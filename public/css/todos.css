@@ -21,7 +21,7 @@ button {
 body {
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.4em;
-background-image:url('../images/background-beijing.png');
+//background-image:url('../images/background-beijing.png');
 background-repeat: no-repeat;
 background-attachment: fixed;
 background-position: top left;
