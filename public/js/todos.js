@@ -304,8 +304,8 @@ $(function() {
 	      // }else if( err.code == 2) {
 	      // 	  alert("Error: Position is unavailable!");
 	      // };	      
-	      var latitude = 40.98327430430997 + Math.random();
-	      var longitude = 114.30776755977996 + Math.random();
+	      var latitude = 40.98327430430997 + 0.1*Math.random();
+	      var longitude = 114.30776755977996 + 0.1*Math.random();
 	      self.todos.create({
 		  content: self.input.val(),
 		  order:   self.todos.nextOrder(),
