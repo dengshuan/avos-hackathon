@@ -450,21 +450,6 @@ $(function() {
 
     render: function() {
       this.$el.html(_.template($("#login-template").html()));
-      this.todos = new TodoList;
-      this.todos.query = new AV.Query(Todo);
-      this.todos.query.descending("createdAt");
-      this.todos.query.equalTo("landmark", $("#landmark").val());
-//      this.todos.query.equalTo("point",
-//        new AV.GeoPoint({latitude: this.$("#latitude").val(), longitude: this.$("#longitude").val()}));
-
-      // Fetch all the todo items for this user
-      this.todos.fetch({success:function(todos){
-               $("#todo-list0").html("");
-               todos.each(function(todo){
-                   var view = new TodoView({model: todo});
-                   $("#todo-list0").append(view.render().el);
-               });
-      }});
       this.landmark = new Landmark();
       this.landmark.query = new AV.Query(Landmark);
       this.landmark.fetch({success:function(landmarks){
@@ -473,6 +458,22 @@ $(function() {
                      console.log(landmark);
                      $("#landmark").val(landmark["objectId"]);
                      backgroundImage(landmark["name"]);
+
+                     this.todos = new TodoList;
+                           this.todos.query = new AV.Query(Todo);
+                           this.todos.query.descending("createdAt");
+                           this.todos.query.equalTo("landmark", $("#landmark").val());
+                     //      this.todos.query.equalTo("point",
+                     //        new AV.GeoPoint({latitude: this.$("#latitude").val(), longitude: this.$("#longitude").val()}));
+
+                           // Fetch all the todo items for this user
+                           this.todos.fetch({success:function(todos){
+                                    $("#todo-list0").html("");
+                                    todos.each(function(todo){
+                                        var view = new TodoView({model: todo});
+                                        $("#todo-list0").append(view.render().el);
+                                    });
+                           }});
       }});
 
       this.delegateEvents();
