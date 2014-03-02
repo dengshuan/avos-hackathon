@@ -4,11 +4,6 @@
     <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 
-<style>
-  body {
-   background:url('images/background-beijing.png') no-repeat;
-  }
-</style>
     <title>Wonder</title>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -18,6 +13,25 @@
     <script src="js/underscore-1.1.6.js"></script>
     <script src="js/av.js"></script>
     <script src="js/todos.js"></script>
+    <script>
+      $(document).ready(function(){
+       $("#background").click(function(){
+	 var random = Math.floor(Math.random()*3+1);
+	 if (random == 1){
+	   $("body").css('backgroundImage', 'url(images/background-zhongguancun.jpg)');
+	   $("#landmark").text("中关村");
+	   }
+	 else if (random == 2){
+	   $("body").css('backgroundImage', 'url(images/background-tiananmen.jpg)');
+	   $("#landmark").text("天安门");
+	   }
+	 else if (random == 3){
+	   $("body").css('backgroundImage', 'url(images/background-xidan.jpg)');
+	   $("#landmark").text("西单");
+	   };
+       });
+       });
+    </script>
     <script type="text/javascript">
     function toRadians(degree) {
         return degree * Math.PI / 180;
@@ -49,7 +63,7 @@
     </script>
   </head>
 
-  <body>
+  <body id="#body">
 
     <!-- Todo App Interface -->
     <input type="hidden" id="latitude" value="39.9">
@@ -139,6 +153,7 @@
     </script>
 
  <script type="text/template" id="manage-todos-template">
+   <button id="background">background</button><span id="landmark"></span>
       <div id="user-info"><%= AV.User.current().get("username") %> <a href="#" class="log-out">登出</a></div>
 
       <div class="section">

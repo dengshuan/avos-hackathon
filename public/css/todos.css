@@ -21,7 +21,7 @@ button {
 body {
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.4em;
-background-image:url('../images/background-beijing.png');
+//background-image:url('../images/background-beijing.png');
 background-repeat: no-repeat;
 background-attachment: fixed;
 background-position: top left;
@@ -115,7 +115,7 @@ background-position: top left;
     left: 0;
     //height: 15px;
     z-index: 2;
-    border-bottom: 1px solid #6c615c;
+   
     background: #8d7d77;
     background: -webkit-gradient(linear, left top, left bottom, from(rgba(132, 110, 100, 0.8)),to(rgba(101, 84, 76, 0.8)));
     background: -webkit-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
@@ -175,7 +175,6 @@ z-index: 2;
 #main {
     position: relative;
     z-index: 2;
-    border-top: 1px dotted #adadad;
 }
 
 label[for='toggle-all'] {
