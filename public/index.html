@@ -13,11 +13,42 @@
     <script src="js/underscore-1.1.6.js"></script>
     <script src="js/av.js"></script>
     <script src="js/todos.js"></script>
+    <script type="text/javascript">
+    function toRadians(degree) {
+        return degree * Math.PI / 180;
+    }
+    function distance(latitude1, longitude1, latitude2, longitude2) {
+        var R = 6371000;
+
+        var deltaLatitude = toRadians(latitude2-latitude1);
+
+        var deltaLongitude = toRadians(longitude2-longitude1);
+
+        latitude1 = toRadians(latitude1);
+
+        latitude2 = toRadians(latitude2);
+
+        var a = Math.sin(deltaLatitude/2) *
+        Math.sin(deltaLatitude/2) +
+        Math.cos(latitude1) *
+        Math.cos(latitude2) *
+        Math.sin(deltaLongitude/2) *
+        Math.sin(deltaLongitude/2);
+
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        var d = R * c;
+
+        return parseInt(d);
+    }
+    </script>
   </head>
 
   <body>
 
     <!-- Todo App Interface -->
+    <input type="hidden" id="latitude" value="39.9">
+    <input type="hidden" id="longitude" value="116.4">
 
     <div id="todoapp">
       <div class="title">
@@ -150,7 +181,7 @@
 	  	<div class="chatItem you" un="item_1021600231">  
 	  	
 	      <div class="chatItemContent">
-          <div class="point" style="float:right"><%= "latitude:"+point["latitude"]+",longitude:"+point["longitude"] %></div>
+          <div class="point" style="float:right"><%= "与您的距离:"+distance(point["latitude"],point["longitude"],$("#latitude").val(),$("#longitude").val())+"米" %></div>
 
           <!--- <img class="avatar" src="/cgi-bin/mmwebwx-bin/webwxgeticon?seq=621610364&amp;username=vveijj" onerror="reLoadImg(this)" un="avatar_vveijj" title="Jim Wei GK" click="showProfile" username="vveijj"> --->
 	     <div class="avatar"><%= user["username"] %>:</div>
