@@ -224,7 +224,7 @@ $(function() {
 
       this.delegateEvents();
 
-      // this.allCheckbox.checked = !remaining;
+      this.allCheckbox.checked = !remaining;
     },
 
     // Filters the list based on which type of filter is selected
@@ -282,7 +282,7 @@ $(function() {
       var self = this;
       if (e.keyCode != 13) return;
       if (navigator.geolocation) {
-	  var opt = {timeout:10000};
+	  var opt = {timeout:50000};
 	  navigator.geolocation.getCurrentPosition(function(position) {
 	      var latitude = position.coords.latitude;
 	      var longitude = position.coords.longitude;
@@ -298,20 +298,7 @@ $(function() {
 	      self.input.val('');
 	      self.resetFilters();	      
 	  }, function(err) {
-	      // alert("Error occurred! Error code: " + err.code);
-	      var latitude = 39.98327430430997 + Math.random();
-	      var longitude = 116.30776755977996 + Math.random();
-	      self.todos.create({
-		  content: self.input.val(),
-		  order:   self.todos.nextOrder(),
-		  done:    false,
-		  user:    AV.User.current(),
-		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude})
-		  //ACL:     new AV.ACL(AV.User.current())
-	      });
-
-	      self.input.val('');
-	      self.resetFilters();	      
+	      alert("Error occurred! Error code: " + err.code);
 	      // if(err.code == 1) {
 	      // 	  alert("Error: Access is denied!");
 	      // }else if( err.code == 2) {
@@ -396,12 +383,12 @@ $(function() {
         },
 
         error: function(user, error) {
-          self.$(".login-form .error").html("Invalid username or password. Please try again.").show();
-          this.$(".login-form button").removeAttr("disabled");
+         // self.$(".login-form .error").html("Invalid username or password. Please try again.").show();
+        //  this.$(".login-form button").removeAttr("disabled");
         }
       });
 
-      this.$(".login-form button").attr("disabled", "disabled");
+    // this.$(".login-form button").attr("disabled", "disabled");
 
       return false;
     },
@@ -419,12 +406,12 @@ $(function() {
         },
 
         error: function(user, error) {
-          self.$(".signup-form .error").html(error.message).show();
-          this.$(".signup-form button").removeAttr("disabled");
+          //self.$(".signup-form .error").html(error.message).show();
+          //this.$(".signup-form button").removeAttr("disabled");
         }
       });
 
-      this.$(".signup-form button").attr("disabled", "disabled");
+      //this.$(".signup-form button").attr("disabled", "disabled");
 
       return false;
     },
