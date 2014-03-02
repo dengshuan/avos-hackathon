@@ -14,23 +14,16 @@
     <script src="js/av.js"></script>
     <script src="js/todos.js"></script>
     <script>
-      $(document).ready(function(){
-       $("#background").click(function(){
-	 var random = Math.floor(Math.random()*3+1);
-	 if (random == 1){
+    function backgroundImage(landmarkName){
+	 if (landmarkName == "中关村"){
 	   $("body").css('backgroundImage', 'url(images/background-zhongguancun.jpg)');
-	   $("#landmark").text("中关村");
+	   $("#landmarkName").text("中关村");
 	   }
-	 else if (random == 2){
+	 else if (landmarkName == "天安门"){
 	   $("body").css('backgroundImage', 'url(images/background-tiananmen.jpg)');
-	   $("#landmark").text("天安门");
-	   }
-	 else if (random == 3){
-	   $("body").css('backgroundImage', 'url(images/background-xidan.jpg)');
-	   $("#landmark").text("西单");
+	   $("#landmarkName").text("天安门");
 	   };
-       });
-       });
+       }
     </script>
     <script type="text/javascript">
     function toRadians(degree) {
@@ -68,6 +61,8 @@
     <!-- Todo App Interface -->
     <input type="hidden" id="latitude" value="39.9">
     <input type="hidden" id="longitude" value="116.4">
+    <input type="hidden" id="landmark" value="5311e7bce4b019ee4904f45e">
+    <label id="landmarkName"></label>
 
     <div id="todoapp">
       <div class="title">
@@ -151,7 +146,7 @@
     </script>
 
  <script type="text/template" id="manage-todos-template">
-   <button id="background">background</button><span id="landmark"></span>
+   <span id="landmarkName"></span>
       <div id="user-info"><%= AV.User.current().get("username") %> <a href="#" class="log-out">登出</a></div>
 
       <div class="section">

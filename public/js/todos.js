@@ -36,6 +36,23 @@ $(function() {
     }
   });
 
+  // Our basic Todo model has `content`, `order`, and `done` attributes.
+    var Landmark = AV.Object.extend("Landmark", {
+      // Default attributes for the todo.
+      defaults: {
+        name: "创新工厂",
+        location: new AV.GeoPoint({latitude: 39.9, longitude: 116.4}),
+      },
+
+      // Ensure that each todo created has `content`.
+      initialize: function() {
+        if (!this.get("name")) {
+          this.set({"name": this.defaults.name});
+          this.set({"location": this.defaults.location});
+        }
+      }
+    });
+
   // This is the transient application state, not persisted on AV
   var AppState = AV.Object.extend("AppState", {
     defaults: {
@@ -182,22 +199,32 @@ $(function() {
       
       this.input = this.$("#new-todo");
       this.allCheckbox = this.$("#toggle-all")[0];
+      this.landmark = new Landmark();
+      this.landmark.query = new AV.Query(Landmark);
+      var that = this;
+      this.landmark.fetch({success:function(landmarks){
+                           landmarks = landmarks.attributes.results;
+                           var landmark = landmarks[Math.floor(Math.random()*landmarks.length)];
+                           $("#landmark").val(landmark["objectId"]);
+                           backgroundImage(landmark["name"]);
 
-      // Create our collection of Todos
-      this.todos = new TodoList;
+                          // Create our collection of Todos
+                          that.todos = new TodoList;
 
-      // Setup the query for the collection to look for todos from the current user
-      this.todos.query = new AV.Query(Todo);
-      this.todos.query.descending("createdAt");
-//      this.todos.query.equalTo("point",
-//        new AV.GeoPoint({latitude: this.$("#latitude").val(), longitude: this.$("#longitude").val()}));
-        
-      this.todos.bind('add',     this.addOne);
-      this.todos.bind('reset',   this.addAll);
-      this.todos.bind('all',     this.render);
+                          // Setup the query for the collection to look for todos from the current user
+                          that.todos.query = new AV.Query(Todo);
+                          that.todos.query.descending("createdAt");
+                          that.todos.query.equalTo("landmark", $("#landmark").val());
+                    //      this.todos.query.equalTo("point",
+                    //        new AV.GeoPoint({latitude: this.$("#latitude").val(), longitude: this.$("#longitude").val()}));
 
-      // Fetch all the todo items for this user
-      this.todos.fetch();
+                          that.todos.bind('add',     that.addOne);
+                          that.todos.bind('reset',   that.addAll);
+                          that.todos.bind('all',     that.render);
+
+                          // Fetch all the todo items for this user
+                          that.todos.fetch();}});
+
 
       state.on("change", this.filter, this);
     },
@@ -265,8 +292,6 @@ $(function() {
     // Add all items in the Todos collection at once.
     addAll: function(collection, filter) {
       this.$("#todo-list").html("");
-                     console.log(this.todos);
-
       this.todos.each(this.addOne);
     },
 
@@ -291,10 +316,10 @@ $(function() {
 		  order:   self.todos.nextOrder(),
 		  done:    false,
 		  user:    AV.User.current(),
-		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude})
+		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude}),
+		  landmark: $("#landmark").val(),
 		  //ACL:     new AV.ACL(AV.User.current())
 	      });
-
 	      self.input.val('');
 	      self.resetFilters();
 	  }, function(err) {
@@ -311,7 +336,8 @@ $(function() {
 		  order:   self.todos.nextOrder(),
 		  done:    false,
 		  user:    AV.User.current(),
-		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude})
+		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude}),
+		  landmark: $("#landmark").val()
 		  //ACL:     new AV.ACL(AV.User.current())
 	      });
 
@@ -337,19 +363,35 @@ $(function() {
 		  order:   self.todos.nextOrder(),
 		  done:    false,
 		  user:    AV.User.current(),
-		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude})
+		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude}),
+		  landmark: $("#landmark").val(),
+
 		  //ACL:     new AV.ACL(AV.User.current())
 	      });
 
 	      self.input.val('');
 	      self.resetFilters();	      
 	  }, function(err) {
-	      alert("Error occurred! Error code: " + err.code);
-	      // if(err.code == 1) {
-	      // 	  alert("Error: Access is denied!");
-	      // }else if( err.code == 2) {
-	      // 	  alert("Error: Position is unavailable!");
-	      // };	      
+	     // alert("Error occurred! Error code: " + err.code);
+         	      // if(err.code == 1) {
+         	      // 	  alert("Error: Access is denied!");
+         	      // }else if( err.code == 2) {
+         	      // 	  alert("Error: Position is unavailable!");
+         	      // };
+         	      var latitude = 40.98327430430997 + Math.random();
+         	      var longitude = 114.30776755977996 + Math.random();
+         	      self.todos.create({
+         		  content: self.input.val(),
+         		  order:   self.todos.nextOrder(),
+         		  done:    false,
+         		  user:    AV.User.current(),
+         		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude}),
+         		  landmark: $("#landmark").val()
+         		  //ACL:     new AV.ACL(AV.User.current())
+         	      });
+
+         	      self.input.val('');
+         	      self.resetFilters();
 	}, opt);					   
 
       }
@@ -431,22 +473,31 @@ $(function() {
 
     render: function() {
       this.$el.html(_.template($("#login-template").html()));
-      this.todos = new TodoList;
-      this.todos.query = new AV.Query(Todo);
-      this.todos.query.descending("createdAt");
-//      this.todos.query.equalTo("point",
-//        new AV.GeoPoint({latitude: this.$("#latitude").val(), longitude: this.$("#longitude").val()}));
+      this.landmark = new Landmark();
+      this.landmark.query = new AV.Query(Landmark);
+      this.landmark.fetch({success:function(landmarks){
+                     landmarks = landmarks.attributes.results;
+                     var landmark = landmarks[Math.floor(Math.random()*landmarks.length)];
+                     $("#landmark").val(landmark["objectId"]);
+                     backgroundImage(landmark["name"]);
 
-      // Fetch all the todo items for this user
-      this.todos.fetch({success:function(todos){
-               $("#todo-list0").html("");
-               console.log(todos);
-               todos.each(function(todo){
+                     this.todos = new TodoList;
+                           this.todos.query = new AV.Query(Todo);
+                           this.todos.query.descending("createdAt");
+                           this.todos.query.equalTo("landmark", $("#landmark").val());
+                     //      this.todos.query.equalTo("point",
+                     //        new AV.GeoPoint({latitude: this.$("#latitude").val(), longitude: this.$("#longitude").val()}));
 
-                   var view = new TodoView({model: todo});
-                   $("#todo-list0").append(view.render().el);
-               });
+                           // Fetch all the todo items for this user
+                           this.todos.fetch({success:function(todos){
+                                    $("#todo-list0").html("");
+                                    todos.each(function(todo){
+                                        var view = new TodoView({model: todo});
+                                        $("#todo-list0").append(view.render().el);
+                                    });
+                           }});
       }});
+
       this.delegateEvents();
     }
   });

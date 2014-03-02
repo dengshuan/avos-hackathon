@@ -453,7 +453,7 @@ height:55px;
     margin: 10px auto;
     font-size: 20px;
     padding: 5px;
-    //width: 340px;;
+    width: 100%;
 }
 
 #todoapp .content .login .signup-form {
