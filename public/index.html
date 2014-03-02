@@ -150,15 +150,17 @@
 	  	<div class="chatItem you" un="item_1021600231">  
 	  	
 	      <div class="chatItemContent">
-	     <!--- <img class="avatar" src="/cgi-bin/mmwebwx-bin/webwxgeticon?seq=621610364&amp;username=vveijj" onerror="reLoadImg(this)" un="avatar_vveijj" title="Jim Wei GK" click="showProfile" username="vveijj"> --->
+          <div class="point" style="float:right"><%= "latitude:"+point["latitude"]+",longitude:"+point["longitude"] %></div>
+
+          <!--- <img class="avatar" src="/cgi-bin/mmwebwx-bin/webwxgeticon?seq=621610364&amp;username=vveijj" onerror="reLoadImg(this)" un="avatar_vveijj" title="Jim Wei GK" click="showProfile" username="vveijj"> --->
 	     <div class="avatar"><%= user["username"] %>:</div>
 	      <div class="cloud cloudText" un="cloud_1021600231" msgid="1021600231">
 	      <div class="cloudPannel" style="">
 	      <div class="sendStatus">   </div>
 	      <div class="cloudBody">
 	      <div class="cloudContent">
-	                                       <pre style="white-space:pre-wrap"><%= content %></pre>  </div>  </div> <div class="cloudArrow "></div>  </div>  </div>  </div>   
-	  
+	                                       <pre style="white-space:pre-wrap"><%= content %></pre>  </div>  </div> <div class="cloudArrow "></div>  </div>  </div>  </div>
+
 	  
 	   
 	   </div>
