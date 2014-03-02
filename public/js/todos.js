@@ -337,7 +337,8 @@ $(function() {
 		  order:   self.todos.nextOrder(),
 		  done:    false,
 		  user:    AV.User.current(),
-		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude})
+		  point:   new AV.GeoPoint({"latitude": latitude, "longitude": longitude}),
+		  landmark: $("#landmark").val();
 		  //ACL:     new AV.ACL(AV.User.current())
 	      });
 
