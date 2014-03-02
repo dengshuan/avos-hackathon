@@ -103,7 +103,7 @@ background-position: top left;
 }
 
 #header {
-    padding-top: 15px;
+    padding: 5px 15px;
     border-radius: inherit;
 }
 
@@ -212,7 +212,7 @@ label[for='toggle-all'] {
 
 #todo-list {
     margin: 0;
-    padding: 0;
+    padding: 0px 0px 0px 20px;
     list-style: none;
     text-align: center;
 }
