@@ -469,10 +469,10 @@ $(function() {
       this.landmark.query = new AV.Query(Landmark);
       this.landmark.fetch({success:function(landmarks){
                      landmarks = landmarks.attributes.results;
-                     var landmark = landmarks[Math.floor(Math.random()*landmarks.length)]
+                     var landmark = landmarks[Math.floor(Math.random()*landmarks.length)];
                      console.log(landmark);
-                     $("#landmark").val(landmark.get("objectId"));
-                     $("#landmarkName").html(landmark.get("name"));
+                     $("#landmark").val(landmark["objectId"]);
+                     backgroundImage(landmark["name"]);
       }});
 
       this.delegateEvents();
