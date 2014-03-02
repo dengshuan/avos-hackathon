@@ -43,7 +43,8 @@ html, body{
 	
 	/* Elements */
 	
-	html, body { height:100%; background:#4E5359 url(../images/bg_universal17ced3.png) repeat 0 0; 
+	html, body { height:100%; 
+	// background:#4E5359 url(../images/bg_universal17ced3.png) repeat 0 0; 
 		color:#666; font:14px/1.5 Helvetica,"微软雅黑","黑体",Arial,Tahoma; text-align:center; 
 		//overflow-y: hidden;
 		}

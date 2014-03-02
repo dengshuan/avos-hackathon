@@ -2,7 +2,7 @@ html,body {
     margin: 0;
     padding: 0;
 }
-
+/*
 button {
     margin: 0;
     padding: 0;
@@ -17,11 +17,11 @@ button {
     -o-appearance: none;
     appearance: none;
 }
-
+*/
 body {
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.4em;
-    background: #eeeeee url('../images/bg.png');
+ //   background: #eeeeee url('../images/bg.png');
     color: #4d4d4d;
     width: 100%;
     margin: 0 auto;
@@ -328,7 +328,7 @@ label[for='toggle-all'] {
 }
 
 .view{
-height:45px;
+height:55px;
 }
 
 #footer {
