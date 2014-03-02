@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <button id="test" onclick="findLandmark()">�ҵر�</button>
+    <button id="test" onclick="findLandmark()">找地标</button>
 
     <div id="credits">
       Powered by <a href="http://cn.avoscloud.com">AVOS Cloud</a> using the JavaScript SDK<br /><br />
@@ -76,19 +76,19 @@
   <header id="header"></header>
       <div class="login">
         <form class="login-form">
-          <h2>��½</h2>
+          <h2>登陆</h2>
           <div class="error" style="display:none"></div>
-          <input type="text" id="login-username" placeholder="�˺�" />
-          <input type="password" id="login-password" placeholder="����" />
-          <button class="chatSend" >��½</button>
+          <input type="text" id="login-username" placeholder="账号" />
+          <input type="password" id="login-password" placeholder="密码" />
+          <button class="chatSend" >登陆</button>
         </form>
 
         <form class="signup-form">
-          <h2>ע��</h2>
+          <h2>注册</h2>
           <div class="error" style="display:none"></div>
-          <input type="text" id="signup-username" placeholder="�˺�" />
-          <input type="password" id="signup-password" placeholder="����" />
-          <button class="chatSend" >ע��</button>
+          <input type="text" id="signup-username" placeholder="账号" />
+          <input type="password" id="signup-password" placeholder="密码" />
+          <button class="chatSend" >注册</button>
         </form>
       </div>
         <div class="section">
@@ -99,7 +99,7 @@
     </script>
 
  <script type="text/template" id="manage-todos-template">
-      <div id="user-info"><%= AV.User.current().get("username") %> <a href="#" class="log-out">�ǳ�</a></div>
+      <div id="user-info"><%= AV.User.current().get("username") %> <a href="#" class="log-out">登出</a></div>
 
       <div class="section">
 
@@ -110,7 +110,7 @@
 						
 						
 							<input id="new-todo" placeholder="Input Words..." type="text" style="" class="chatInput lightBorder" />
-							 <a href="javascript:;" id="btn-send" class="chatSend" click="sendMsg@.inputArea"><b>����</b></a>
+							 <a href="javascript:;" id="btn-send" class="chatSend" click="sendMsg@.inputArea"><b>发送</b></a>
 						
 							<div class="clr"></div>
 							<input style="visibility: hidden; position: absolute; left: -1000px; padding: 0px 10px; width: 403px; overflow: hidden;" type="text" id="new-todo" class="chatInput lightBorder"></input>
