@@ -199,23 +199,32 @@ $(function() {
       
       this.input = this.$("#new-todo");
       this.allCheckbox = this.$("#toggle-all")[0];
+      this.landmark = new Landmark();
+      this.landmark.query = new AV.Query(Landmark);
+      var that = this;
+      this.landmark.fetch({success:function(landmarks){
+                           landmarks = landmarks.attributes.results;
+                           var landmark = landmarks[Math.floor(Math.random()*landmarks.length)];
+                           $("#landmark").val(landmark["objectId"]);
+                           backgroundImage(landmark["name"]);
 
-      // Create our collection of Todos
-      this.todos = new TodoList;
+                          // Create our collection of Todos
+                          that.todos = new TodoList;
 
-      // Setup the query for the collection to look for todos from the current user
-      this.todos.query = new AV.Query(Todo);
-      this.todos.query.descending("createdAt");
-      this.todos.query.equalTo("landmark", $("#landmark").val());
-//      this.todos.query.equalTo("point",
-//        new AV.GeoPoint({latitude: this.$("#latitude").val(), longitude: this.$("#longitude").val()}));
-        
-      this.todos.bind('add',     this.addOne);
-      this.todos.bind('reset',   this.addAll);
-      this.todos.bind('all',     this.render);
+                          // Setup the query for the collection to look for todos from the current user
+                          that.todos.query = new AV.Query(Todo);
+                          that.todos.query.descending("createdAt");
+                          that.todos.query.equalTo("landmark", $("#landmark").val());
+                    //      this.todos.query.equalTo("point",
+                    //        new AV.GeoPoint({latitude: this.$("#latitude").val(), longitude: this.$("#longitude").val()}));
 
-      // Fetch all the todo items for this user
-      this.todos.fetch();
+                          that.todos.bind('add',     that.addOne);
+                          that.todos.bind('reset',   that.addAll);
+                          that.todos.bind('all',     that.render);
+
+                          // Fetch all the todo items for this user
+                          that.todos.fetch();}});
+
 
       state.on("change", this.filter, this);
     },
@@ -283,8 +292,6 @@ $(function() {
     // Add all items in the Todos collection at once.
     addAll: function(collection, filter) {
       this.$("#todo-list").html("");
-                     console.log(this.todos);
-
       this.todos.each(this.addOne);
     },
 
@@ -455,7 +462,6 @@ $(function() {
       this.landmark.fetch({success:function(landmarks){
                      landmarks = landmarks.attributes.results;
                      var landmark = landmarks[Math.floor(Math.random()*landmarks.length)];
-                     console.log(landmark);
                      $("#landmark").val(landmark["objectId"]);
                      backgroundImage(landmark["name"]);
 
