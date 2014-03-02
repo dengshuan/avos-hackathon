@@ -21,7 +21,10 @@ button {
 body {
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.4em;
- //   background: #eeeeee url('../images/bg.png');
+background-image:url('../images/background-beijing.png');
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: top left;
     color: #4d4d4d;
     width: 100%;
     margin: 0 auto;
@@ -32,8 +35,18 @@ body {
     font-smoothing: antialiased;
 }
 
+.avatar{
+    background: #9CC8E2;
+}
+
+.point{
+    background: #9CC8E2;
+    float:right;
+    font-size: 8px;
+    padding:20px
+}
+
 #todoapp {
-    background: #fff;
     /*
     background: rgba(255, 255, 255, 0.9);
     
